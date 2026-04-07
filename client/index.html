@@ -797,7 +797,7 @@ async function initDashboard() {
   if (!currentUser) { navigate('auth'); return; }
   document.getElementById('dash-welcome').textContent = `Welcome back, ${currentUser.name}! 👋`;
   try {
-    const data = await api('/appointments/my');
+    const data = await api('/appointments');
     const appts = data.appointments || [];
     const now = new Date();
     document.getElementById('stat-total').textContent = appts.length;
@@ -1010,7 +1010,7 @@ async function initMyAppointments(filter = 'all') {
   if (!currentUser) { navigate('auth'); return; }
   showLoader();
   try {
-    const data = await api('/appointments/my');
+    const data = await api('/appointments');
     allMyAppointments = data.appointments || [];
     filterMyAppts(filter);
   } catch (err) {
@@ -1140,7 +1140,7 @@ async function loadAdminAppointments() {
   showLoader();
   try {
     const status = document.getElementById('admin-appt-filter').value;
-    const data = await api(`/appointments/admin/all${status ? `?status=${status}` : ''}`);
+    C
     const appts = data.appointments || [];
     const table = document.getElementById('admin-appointments-table');
     if (!appts.length) { table.innerHTML = `<div class="empty-state"><div class="empty-icon">📅</div><p>No appointments found.</p></div>`; return; }
